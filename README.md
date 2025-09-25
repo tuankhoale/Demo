@@ -1,73 +1,117 @@
-# Welcome to your Lovable project
+# Blood Test Management System 🧪
 
-## Project info
+## Project Overview  
+Ứng dụng hỗ trợ quản lý xét nghiệm máu, dành cho bệnh viện, phòng xét nghiệm, hoặc trung tâm y tế.  
+Mục tiêu: cung cấp giao diện trực quan, chức năng đầy đủ để quản lý bệnh nhân, quản lý xét nghiệm, thống kê và báo cáo.  
 
-**URL**: https://lovable.dev/projects/780b0bc4-4140-4b39-877c-c901d0873d32
+### Vai trò người dùng  
+- **Admin**: quản lý toàn bộ hệ thống (người dùng, bệnh nhân, xét nghiệm).  
+- **Staff**: thực hiện xét nghiệm, nhập kết quả, quản lý bệnh nhân.  
+- **Viewer**: chỉ được xem dữ liệu (bệnh nhân, kết quả xét nghiệm, báo cáo).  
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## Tech Stack  
+- Frontend: React + Vite + TypeScript  
+- UI / Styling: Tailwind CSS + shadcn-ui  
+- State / Data Fetching: React Query / Axios  
+- Backend: *(Ví dụ: Node.js / Express / .NET Core / Java Spring Boot — bạn chỉnh lại)*  
+- Database: MySQL / SQL Server  
+- Kiến trúc: phân tầng rõ ràng (Controllers / Services / Repositories / Entities)  
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/780b0bc4-4140-4b39-877c-c901d0873d32) and start prompting.
+## Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+├── src/
+│   ├── components/       # các component tái sử dụng UI  
+│   ├── contexts/         # React contexts (Auth, Theme, v.v.)  
+│   ├── hooks/             # custom hooks  
+│   ├── lib/               # các hàm trợ giúp, tiện ích  
+│   ├── pages/             # các trang (Dashboard, Patients, Tests...)  
+│   ├── services/          # lớp gọi API (HTTP client)  
+│   ├── types/             # định nghĩa TypeScript types / interfaces  
+│   └── App.tsx            # entry point  
+├── public/                # tài nguyên tĩnh  
+├── package.json  
+├── tsconfig.json  
+└── README.md  
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Getting Started
 
-**Use GitHub Codespaces**
+### Prerequisites  
+- Node.js (v18 hoặc cao hơn)  
+- npm hoặc yarn  
+- Database (MySQL / SQL Server)  
+- Nếu backend tách riêng: cần môi trường phù hợp (ví dụ .NET SDK, Java, v.v.)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Installation & Setup
 
-## What technologies are used for this project?
+1. **Clone repository**  
+   ```bash
+   git clone <YOUR_REPO_URL>
+   cd blood-test-management
+   ```
 
-This project is built with:
+2. **Cài dependency frontend**  
+   ```bash
+   npm install
+   # hoặc nếu dùng yarn:
+   # yarn install
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+3. **Cấu hình backend / API**  
+   - Tạo file `.env` (nếu dùng Node.js) hoặc chỉnh file config tương ứng  
+     ```env
+     VITE_API_BASE_URL=http://localhost:5000/api
+     ```
+   - Nếu backend tích hợp trong cùng repo, chỉnh cấu hình kết nối database.  
+   - Tạo database mới (ví dụ `blood_test_db`).  
+   - Chạy migration / khởi tạo schema (nếu có)  
+     ```bash
+     # ví dụ cho Node.js + Prisma:
+     npx prisma migrate dev
+     # hoặc nếu dùng .NET EF Core:
+     dotnet ef database update
+     ```
 
-## How can I deploy this project?
+### Running the Application
 
-Simply open [Lovable](https://lovable.dev/projects/780b0bc4-4140-4b39-877c-c901d0873d32) and click on Share -> Publish.
+1. **Chạy backend (nếu có trong repo hoặc tách riêng)**  
+   Ví dụ:
+   ```bash
+   npm run start:server
+   ```
+   hoặc:
+   ```bash
+   dotnet run --project path/to/backend
+   ```
 
-## Can I connect a custom domain to my Lovable project?
+2. **Chạy frontend**  
+   ```bash
+   npm run dev
+   ```
+   Mở browser truy cập `http://localhost:5173`  
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Contributing  
+1. Fork repository  
+2. Tạo branch feature: `git checkout -b feature/nghiem-sang`  
+3. Commit thay đổi: `git commit -m "Add new test management feature"`  
+4. Push lên branch: `git push origin feature/nghiem-sang`  
+5. Mở Pull Request  
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## License  
+Dự án này được cấp phép theo **MIT License** (bạn có thể đổi nếu muốn).  
+
+---
+
+## Support  
+Nếu gặp lỗi, bạn có thể mở issue trong repository hoặc liên hệ tác giả dự án để được hỗ trợ.
