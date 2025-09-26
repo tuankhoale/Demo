@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,11 +16,13 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [agreeToTerms, setAgreeToTerms] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { isAuthenticated } = useAuth();
+
+    const { isAuthenticated, register } = useAuth(); // 👉 lấy register từ context
     const { toast } = useToast();
+    const navigate = useNavigate();
 
     if (isAuthenticated) {
-        return <Navigate to="/" replace />;
+        return <Navigate to="/dashboard" replace />;
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -55,14 +57,23 @@ const Register = () => {
 
         setIsLoading(true);
 
-        // Simulate API call
-        setTimeout(() => {
+        const success = await register(fullName, email, password);
+
+        if (success) {
             toast({
                 title: "Đăng ký thành công",
-                description: "Tài khoản đã được tạo thành công!",
+                description: "Tài khoản đã được tạo!",
             });
-            setIsLoading(false);
-        }, 1500);
+            navigate("/login"); // 👉 sau khi đăng ký xong chuyển sang login
+        } else {
+            toast({
+                title: "Lỗi",
+                description: "Email đã tồn tại",
+                variant: "destructive",
+            });
+        }
+
+        setIsLoading(false);
     };
 
     return (
@@ -91,7 +102,9 @@ const Register = () => {
                                 <Shield className="w-8 h-8 text-medical-primary" />
                                 <div>
                                     <h3 className="font-semibold">Bảo mật cao cấp</h3>
-                                    <p className="text-sm text-muted-foreground">Dữ liệu được mã hóa và bảo vệ tuyệt đối</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Dữ liệu được mã hóa và bảo vệ tuyệt đối
+                                    </p>
                                 </div>
                             </div>
 
@@ -99,7 +112,9 @@ const Register = () => {
                                 <FileText className="w-8 h-8 text-medical-primary" />
                                 <div>
                                     <h3 className="font-semibold">Báo cáo chi tiết</h3>
-                                    <p className="text-sm text-muted-foreground">Thống kê và phân tích toàn diện</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Thống kê và phân tích toàn diện
+                                    </p>
                                 </div>
                             </div>
 
@@ -107,7 +122,9 @@ const Register = () => {
                                 <Users className="w-8 h-8 text-medical-primary" />
                                 <div>
                                     <h3 className="font-semibold">Quản lý đa vai trò</h3>
-                                    <p className="text-sm text-muted-foreground">Phân quyền linh hoạt theo chức vụ</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Phân quyền linh hoạt theo chức vụ
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +143,7 @@ const Register = () => {
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Full Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="fullName">Họ và tên</Label>
                                 <div className="relative">
@@ -142,6 +160,7 @@ const Register = () => {
                                 </div>
                             </div>
 
+                            {/* Email */}
                             <div className="space-y-2">
                                 <Label htmlFor="email">Email</Label>
                                 <div className="relative">
@@ -158,6 +177,7 @@ const Register = () => {
                                 </div>
                             </div>
 
+                            {/* Password */}
                             <div className="space-y-2">
                                 <Label htmlFor="password">Mật khẩu</Label>
                                 <div className="relative">
@@ -174,6 +194,7 @@ const Register = () => {
                                 </div>
                             </div>
 
+                            {/* Confirm Password */}
                             <div className="space-y-2">
                                 <Label htmlFor="confirmPassword">Xác nhận mật khẩu</Label>
                                 <div className="relative">
@@ -190,6 +211,7 @@ const Register = () => {
                                 </div>
                             </div>
 
+                            {/* Terms */}
                             <div className="flex items-center space-x-2">
                                 <Checkbox
                                     id="terms"
@@ -204,6 +226,7 @@ const Register = () => {
                                 </Label>
                             </div>
 
+                            {/* Submit */}
                             <Button
                                 type="submit"
                                 className="w-full bg-gradient-medical hover:shadow-medical transition-all duration-300"

@@ -4,29 +4,28 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Shield, FileText, Users, TestTube, Microscope, Stethoscope } from 'lucide-react';
+import { Shield, FileText, Users, TestTube } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-
+import { fakeUsers } from "@/fakeDb";
+import { LogIn } from "lucide-react";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password || !role) {
+    if (!email || !password) {
       toast({
         title: "Lỗi",
         description: "Vui lòng điền đầy đủ thông tin",
@@ -36,7 +35,7 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    const success = await login(email, password, role);
+    const success = await login(email, password);
 
     if (success) {
       toast({
@@ -138,41 +137,6 @@ const Login = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Vai trò</Label>
-                <Select onValueChange={setRole} required>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Chọn vai trò của bạn" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Admin">
-                      <div className="flex items-center space-x-2">
-                        <Shield className="w-4 h-4" />
-                        <span>Admin</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Manager">
-                      <div className="flex items-center space-x-2">
-                        <Stethoscope className="w-4 h-4" />
-                        <span>Manager</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Lab Staff">
-                      <div className="flex items-center space-x-2">
-                        <Stethoscope className="w-4 h-4" />
-                        <span>Lab Staff</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Bệnh nhân">
-                      <div className="flex items-center space-x-2">
-                        <Microscope className="w-4 h-4" />
-                        <span>Bệnh nhân</span>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="remember"
@@ -197,10 +161,58 @@ const Login = () => {
               </div>
             </form>
 
-            <div className="text-center ">
+            {/* Demo accounts */}
+            <div className="mt-6">
+              <h3 className="font-semibold text-center mb-2">🔑 Tài khoản demo</h3>
+              <ul className="space-y-2 text-sm bg-muted p-3 rounded-lg">
+                {fakeUsers.map((u) => (
+                  <li
+                    key={u.id}
+                    className="flex items-center justify-between p-2 rounded-md hover:bg-muted/70 transition"
+                  >
+                    <div>
+                      <span className="font-medium">{u.role}</span>{" "}
+                      <span className="text-muted-foreground">
+                        ({u.email} / {u.password})
+                      </span>
+                    </div>
+                    <Button
+                      size="sm"
+                      className="ml-2 bg-gradient-to-r from-medical-primary to-medical-secondary 
+                     text-white rounded-lg shadow-md hover:shadow-lg 
+                     hover:scale-105 transition-all flex items-center gap-1"
+                      onClick={async () => {
+                        const success = await login(u.email, u.password);
+                        if (success) {
+                          toast({
+                            title: "Đăng nhập thành công",
+                            description: `Xin chào ${u.name}`,
+                          });
+                        } else {
+                          toast({
+                            title: "Lỗi",
+                            description: "Không thể đăng nhập",
+                            variant: "destructive",
+                          });
+                        }
+                      }}
+                    >
+                      <LogIn className="w-4 h-4" />
+                      Kết nối
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+
+
+            <div className="text-center">
               <span className="text-sm text-muted-foreground">
                 Chưa có tài khoản?{" "}
-                <Link to="/register" className="text-medical-primary hover:underline font-medium">Đăng ký ngay</Link>
+                <Link to="/register" className="text-medical-primary hover:underline font-medium">
+                  Đăng ký ngay
+                </Link>
               </span>
             </div>
           </CardContent>

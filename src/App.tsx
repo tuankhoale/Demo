@@ -16,6 +16,8 @@ import Reports from "./pages/Reports";
 import StaffManagement from "./pages/StaffManagement";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
+import PATHS from "./routes/paths";
+import HomePage from "./pages/HomePage";
 
 const queryClient = new QueryClient();
 
@@ -27,13 +29,22 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Homepage */}
+            <Route path="/" element={<HomePage />} />
+
+            {/* Auth */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/" element={
-              <SidebarProvider>
-                <DashboardLayout />
-              </SidebarProvider>
-            }>
+
+            {/* Dashboard */}
+            <Route
+              path="/dashboard"
+              element={
+                <SidebarProvider>
+                  <DashboardLayout />
+                </SidebarProvider>
+              }
+            >
               <Route index element={<Dashboard />} />
               <Route path="patients" element={<PatientManagement />} />
               <Route path="tests" element={<TestManagement />} />
@@ -44,10 +55,11 @@ const App = () => (
               <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>
+
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
-  </QueryClientProvider>
+  </QueryClientProvider >
 );
 
 export default App;
