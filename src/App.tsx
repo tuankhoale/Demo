@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import PatientManagement from "./pages/PatientManagement";
@@ -14,6 +15,7 @@ import ResultsManagement from "./pages/ResultsManagement";
 import Reports from "./pages/Reports";
 import StaffManagement from "./pages/StaffManagement";
 import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/" element={
               <SidebarProvider>
                 <DashboardLayout />
@@ -38,6 +41,7 @@ const App = () => (
               <Route path="reports" element={<Reports />} />
               <Route path="staff" element={<StaffManagement />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="profile" element={<Profile />} />
             </Route>
           </Routes>
         </BrowserRouter>

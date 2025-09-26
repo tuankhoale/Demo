@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password || !role) {
       toast({
         title: "Lỗi",
@@ -37,7 +37,7 @@ const Login = () => {
 
     setIsLoading(true);
     const success = await login(email, password, role);
-    
+
     if (success) {
       toast({
         title: "Đăng nhập thành công",
@@ -64,7 +64,7 @@ const Login = () => {
                 <TestTube className="w-12 h-12 text-white" />
               </div>
             </div>
-            
+
             <div>
               <h1 className="text-4xl font-bold bg-gradient-medical bg-clip-text text-transparent">
                 Phòng Xét nghiệm Máu
@@ -73,7 +73,7 @@ const Login = () => {
                 Hệ thống quản lý xét nghiệm hiện đại và chuyên nghiệp
               </p>
             </div>
-            
+
             <div className="grid gap-4 text-center">
               <div className="flex items-center justify-center space-x-3 p-4 bg-card rounded-xl shadow-card">
                 <Shield className="w-8 h-8 text-medical-primary" />
@@ -82,7 +82,7 @@ const Login = () => {
                   <p className="text-sm text-muted-foreground">Dữ liệu được mã hóa và bảo vệ tuyệt đối</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-center space-x-3 p-4 bg-card rounded-xl shadow-card">
                 <FileText className="w-8 h-8 text-medical-primary" />
                 <div>
@@ -90,7 +90,7 @@ const Login = () => {
                   <p className="text-sm text-muted-foreground">Thống kê và phân tích toàn diện</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center justify-center space-x-3 p-4 bg-card rounded-xl shadow-card">
                 <Users className="w-8 h-8 text-medical-primary" />
                 <div>
@@ -125,7 +125,7 @@ const Login = () => {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Mật khẩu</Label>
                 <Input
@@ -137,7 +137,7 @@ const Login = () => {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Vai trò</Label>
                 <Select onValueChange={setRole} required>
@@ -151,22 +151,28 @@ const Login = () => {
                         <span>Admin</span>
                       </div>
                     </SelectItem>
-                    <SelectItem value="Bác sĩ">
+                    <SelectItem value="Manager">
                       <div className="flex items-center space-x-2">
                         <Stethoscope className="w-4 h-4" />
-                        <span>Bác sĩ</span>
+                        <span>Manager</span>
                       </div>
                     </SelectItem>
-                    <SelectItem value="Kỹ thuật viên">
+                    <SelectItem value="Lab Staff">
+                      <div className="flex items-center space-x-2">
+                        <Stethoscope className="w-4 h-4" />
+                        <span>Lab Staff</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="Bệnh nhân">
                       <div className="flex items-center space-x-2">
                         <Microscope className="w-4 h-4" />
-                        <span>Kỹ thuật viên</span>
+                        <span>Bệnh nhân</span>
                       </div>
                     </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="remember"
@@ -175,7 +181,7 @@ const Login = () => {
                 />
                 <Label htmlFor="remember" className="text-sm">Ghi nhớ đăng nhập</Label>
               </div>
-              
+
               <Button
                 type="submit"
                 className="w-full bg-gradient-medical hover:shadow-medical transition-all duration-300"
@@ -183,19 +189,19 @@ const Login = () => {
               >
                 {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
               </Button>
-              
+
               <div className="text-center">
                 <Button variant="link" className="text-sm text-medical-primary">
                   Quên mật khẩu?
                 </Button>
               </div>
             </form>
-            
-            <div className="mt-6 text-center text-sm text-muted-foreground">
-              Cần hỗ trợ?{" "}
-              <Button variant="link" className="text-medical-primary p-0">
-                Liên hệ quản trị viên
-              </Button>
+
+            <div className="text-center ">
+              <span className="text-sm text-muted-foreground">
+                Chưa có tài khoản?{" "}
+                <Link to="/register" className="text-medical-primary hover:underline font-medium">Đăng ký ngay</Link>
+              </span>
             </div>
           </CardContent>
         </Card>

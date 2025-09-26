@@ -4,7 +4,7 @@ interface User {
   id: string;
   name: string;
   email: string;
-  role: 'Admin' | 'Bác sĩ' | 'Kỹ thuật viên';
+  role: 'Admin' | 'Manager' | 'Lab Staff' | 'Bệnh nhân';
   avatar?: string;
 }
 
@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string, role: string): Promise<boolean> => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     if (email && password) {
       const mockUser: User = {
         id: '1',
