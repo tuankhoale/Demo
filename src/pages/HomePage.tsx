@@ -1,5 +1,6 @@
 import PATHS from "@/routes/paths";
 import React, { useEffect, useState } from "react";
+import { Button } from "react-day-picker";
 import { Link } from "react-router-dom";
 
 // Danh sách ảnh cho slider
@@ -47,15 +48,19 @@ function HomePage() {
                         quản lý lịch hẹn và đơn thuốc nhanh chóng, chính xác và an toàn.
                     </p>
                     <div className="flex justify-center md:justify-start gap-4">
+
                         <Link
                             to={PATHS.LOGIN}
-                            className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700"
+                            className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 
+                            drop-shadow-lg"
                         >
                             Đăng nhập
                         </Link>
+
                         <Link
                             to={PATHS.REGISTER}
-                            className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg shadow hover:bg-gray-300"
+                            className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg shadow hover:bg-gray-300 
+                            drop-shadow-lg "
                         >
                             Đăng ký
                         </Link>

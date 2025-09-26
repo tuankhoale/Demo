@@ -248,12 +248,6 @@ const Register = () => {
                             </div>
                         </form>
 
-                        <div className="mt-6 text-center text-sm text-muted-foreground">
-                            Cần hỗ trợ?{" "}
-                            <Button variant="link" className="text-medical-primary p-0">
-                                Liên hệ quản trị viên
-                            </Button>
-                        </div>
                     </CardContent>
                 </Card>
             </div>
