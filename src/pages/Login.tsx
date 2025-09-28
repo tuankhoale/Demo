@@ -5,11 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Shield, FileText, Users, TestTube } from 'lucide-react';
+import { Shield, FileText, Users, Microscope } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { fakeUsers } from "@/fakeDb";
 import { LogIn } from "lucide-react";
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,9 +60,12 @@ const Login = () => {
         <div className="max-w-md w-full space-y-8 animate-fade-in">
           <div className="text-center space-y-6">
             <div className="flex justify-center">
-              <div className="bg-gradient-medical p-4 rounded-2xl shadow-medical">
-                <TestTube className="w-12 h-12 text-white" />
-              </div>
+              <Link to='/'>
+                <div className="bg-gradient-medical p-4 rounded-2xl shadow-medical">
+                  <Microscope className="w-12 h-12 text-white" />
+                </div>
+              </Link>
+
             </div>
 
             <div>

@@ -25,7 +25,7 @@ import {
 const menuItems = [
   {
     title: 'Dashboard',
-    url: '/',
+    url: '/dashboard',
     icon: BarChart3,
   },
   {
@@ -89,12 +89,11 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      end={item.url === '/'}
+                      end={item.url === "/"}
                       className={({ isActive }) =>
-                        `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all ${
-                          isActive
-                            ? 'bg-medical-secondary text-medical-primary font-medium shadow-sm'
-                            : 'hover:bg-medical-secondary/50 text-muted-foreground hover:text-foreground'
+                        `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all ${isActive
+                          ? 'bg-medical-secondary text-medical-primary font-medium shadow-sm'
+                          : 'hover:bg-medical-secondary/50 text-muted-foreground hover:text-foreground'
                         }`
                       }
                     >

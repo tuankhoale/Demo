@@ -11,20 +11,17 @@ import { User, Mail, Shield, Calendar, MapPin, Phone, Edit3, Save, X } from 'luc
 import { useToast } from '@/hooks/use-toast';
 
 const Profile = () => {
-    const { user } = useAuth();
+    const { user, updateProfile } = useAuth();
     const { toast } = useToast();
     const [isEditing, setIsEditing] = useState(false);
+
     const [formData, setFormData] = useState({
-        name: user?.name || '',
-        email: user?.email || '',
-        phone: '+84 123 456 789',
-        address: 'Hà Nội, Việt Nam',
-        department: 'Khoa Xét nghiệm',
-        joinDate: '01/01/2023'
+        name: user?.name || "",
+        email: user?.email || "",
     });
 
     const handleSave = () => {
-        // Simulate save
+        updateProfile(formData); // 👉 lưu vào context
         toast({
             title: "Cập nhật thành công",
             description: "Thông tin cá nhân đã được cập nhật.",
@@ -34,12 +31,8 @@ const Profile = () => {
 
     const handleCancel = () => {
         setFormData({
-            name: user?.name || '',
-            email: user?.email || '',
-            phone: '+84 123 456 789',
-            address: 'Hà Nội, Việt Nam',
-            department: 'Khoa Xét nghiệm',
-            joinDate: '01/01/2023'
+            name: user?.name || "",
+            email: user?.email || "",
         });
         setIsEditing(false);
     };
@@ -67,8 +60,8 @@ const Profile = () => {
                                 </AvatarFallback>
                             </Avatar>
                         </div>
-                        <CardTitle className="text-xl">{user?.name}</CardTitle>
-                        <CardDescription>{user?.email}</CardDescription>
+                        <CardTitle className="text-xl">{formData?.name}</CardTitle>
+                        <CardDescription>{formData?.email}</CardDescription>
                         <div className="flex justify-center mt-2">
                             <Badge variant="secondary" className="text-sm bg-medical-secondary text-medical-primary">
                                 <Shield className="w-3 h-3 mr-1" />
@@ -76,22 +69,6 @@ const Profile = () => {
                             </Badge>
                         </div>
                     </CardHeader>
-                    <CardContent>
-                        <div className="space-y-3 text-sm">
-                            <div className="flex items-center text-muted-foreground">
-                                <MapPin className="w-4 h-4 mr-2" />
-                                <span>{formData.address}</span>
-                            </div>
-                            <div className="flex items-center text-muted-foreground">
-                                <Calendar className="w-4 h-4 mr-2" />
-                                <span>Gia nhập: {formData.joinDate}</span>
-                            </div>
-                            <div className="flex items-center text-muted-foreground">
-                                <Phone className="w-4 h-4 mr-2" />
-                                <span>{formData.phone}</span>
-                            </div>
-                        </div>
-                    </CardContent>
                 </Card>
 
                 {/* Information Form */}
@@ -145,7 +122,7 @@ const Profile = () => {
                                 </Label>
                                 <Input
                                     id="name"
-                                    value={formData.name}
+                                    value={formData?.name || ""}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     disabled={!isEditing}
                                     className={!isEditing ? "bg-muted" : ""}
@@ -160,54 +137,13 @@ const Profile = () => {
                                 <Input
                                     id="email"
                                     type="email"
-                                    value={formData.email}
+                                    value={formData?.email || ""}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     disabled={!isEditing}
                                     className={!isEditing ? "bg-muted" : ""}
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="phone" className="flex items-center">
-                                    <Phone className="w-4 h-4 mr-2" />
-                                    Số điện thoại
-                                </Label>
-                                <Input
-                                    id="phone"
-                                    value={formData.phone}
-                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                    disabled={!isEditing}
-                                    className={!isEditing ? "bg-muted" : ""}
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="department" className="flex items-center">
-                                    <Shield className="w-4 h-4 mr-2" />
-                                    Khoa/Phòng
-                                </Label>
-                                <Input
-                                    id="department"
-                                    value={formData.department}
-                                    onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                                    disabled={!isEditing}
-                                    className={!isEditing ? "bg-muted" : ""}
-                                />
-                            </div>
-
-                            <div className="md:col-span-2 space-y-2">
-                                <Label htmlFor="address" className="flex items-center">
-                                    <MapPin className="w-4 h-4 mr-2" />
-                                    Địa chỉ
-                                </Label>
-                                <Input
-                                    id="address"
-                                    value={formData.address}
-                                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                                    disabled={!isEditing}
-                                    className={!isEditing ? "bg-muted" : ""}
-                                />
-                            </div>
                         </div>
 
                         <Separator className="my-6" />

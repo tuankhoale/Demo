@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AuthProvider } from "@/contexts/AuthContext";
+
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DashboardLayout from "./components/layout/DashboardLayout";
@@ -30,21 +32,15 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             {/* Homepage */}
-            <Route path="/" element={<HomePage />} />
+            <Route path={PATHS.HOME} element={<HomePage />} />
 
             {/* Auth */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path={PATHS.LOGIN} element={<Login />} />
+            <Route path={PATHS.REGISTER} element={<Register />} />
 
-            {/* Dashboard */}
-            <Route
-              path="/dashboard"
-              element={
-                <SidebarProvider>
-                  <DashboardLayout />
-                </SidebarProvider>
-              }
-            >
+
+            {/* Dashboard Pages (independent) */}
+            <Route path={PATHS.DASHBOARD} element={<SidebarProvider> <DashboardLayout /> </SidebarProvider>} >
               <Route index element={<Dashboard />} />
               <Route path="patients" element={<PatientManagement />} />
               <Route path="tests" element={<TestManagement />} />
@@ -54,6 +50,9 @@ const App = () => (
               <Route path="settings" element={<Settings />} />
               <Route path="profile" element={<Profile />} />
             </Route>
+
+
+
           </Routes>
 
         </BrowserRouter>

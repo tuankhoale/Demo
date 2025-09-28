@@ -7,6 +7,7 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
+  updateProfile: (newData: Partial<Omit<User, 'password'>>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -66,14 +67,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+
+  //------ USER PROFILE ----
+  const updateProfile = (updates: Partial<Omit<User, "id" | "password">>) => {
+    if (!user) return;
+
+    const updatedUser = { ...user, ...updates };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    // update cả fakeUsers nếu có
+    const index = fakeUsers.findIndex(u => u.id === user.id);
+    if (index !== -1) {
+      fakeUsers[index] = { ...fakeUsers[index], ...updates };
+      localStorage.setItem("fakeUsers", JSON.stringify(fakeUsers));
+    }
+  };
+
+
+
+
+
   return (
     <AuthContext.Provider
       value={{
         user,
         login,
-        register, // 👉 thêm ở đây
+        register,
         logout,
         isAuthenticated: !!user,
+        updateProfile,
       }}
     >
       {children}
