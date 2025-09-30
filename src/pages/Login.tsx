@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,10 +16,30 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  if (isAuthenticated) {
+  if (isAuthenticated && user) {
+    switch (user.role) {
+      case 'admin':
+        return <Navigate to="/dashboard" />
+      case 'manager':
+        return <Navigate to="/dashboard" />
+      case 'lab staff':
+        return <Navigate to="/dashboard" />
+      case 'patient':
+        // Dashboard index will render the patient view based on user.role
+        return <Navigate to="/dashboard" />
+    }
+
+
+
+
+
+
+
+
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -192,6 +212,23 @@ const Login = () => {
                             title: "Đăng nhập thành công",
                             description: `Xin chào ${u.name}`,
                           });
+                          navigate("/dashboard");
+                          switch (u.role) {
+                            case "admin":
+                              navigate("/dashboard");
+                              break;
+                            case "manager":
+                              navigate("/dashboard");
+                              break;
+                            case "lab staff":
+                              navigate("/dashboard");
+                              break;
+                            case "patient":
+                              navigate("/dashboard");
+                              break;
+                          }
+
+
                         } else {
                           toast({
                             title: "Lỗi",
