@@ -29,17 +29,8 @@ const Login = () => {
       case 'lab staff':
         return <Navigate to="/dashboard" />
       case 'patient':
-        // Dashboard index will render the patient view based on user.role
         return <Navigate to="/dashboard" />
     }
-
-
-
-
-
-
-
-
     return <Navigate to="/dashboard" replace />;
   }
 

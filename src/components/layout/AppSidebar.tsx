@@ -11,57 +11,34 @@ import {
   SidebarHeader,
   useSidebar,
 } from '@/components/ui/sidebar';
-import {
-  BarChart3,
-  Users,
-  TestTube,
-  ClipboardCheck,
-  FileText,
-  UserCog,
-  Settings,
-  Microscope,
-} from 'lucide-react';
-
-const menuItems = [
-  {
-    title: 'Dashboard',
-    url: '/dashboard',
-    icon: BarChart3,
-  },
-  {
-    title: 'Bệnh nhân',
-    url: '/patients',
-    icon: Users,
-  },
-  {
-    title: 'Xét nghiệm',
-    url: '/tests',
-    icon: TestTube,
-  },
-  {
-    title: 'Kết quả',
-    url: '/results',
-    icon: ClipboardCheck,
-  },
-  {
-    title: 'Báo cáo',
-    url: '/reports',
-    icon: FileText,
-  },
-  {
-    title: 'Nhân viên',
-    url: '/staff',
-    icon: UserCog,
-  },
-  {
-    title: 'Cài đặt',
-    url: '/settings',
-    icon: Settings,
-  },
-];
+import { Microscope } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { getMenuItemsByRole } from '@/config/menuConfig';
 
 export function AppSidebar() {
   const location = useLocation();
+  const { user } = useAuth();
+
+  // Lấy menu items dựa trên role của user
+  const menuItems = user ? getMenuItemsByRole(user.role) : [];
+
+  // Định nghĩa label cho từng role
+  const getGroupLabel = () => {
+    if (!user) return 'Chức năng chính';
+
+    switch (user.role) {
+      case 'admin':
+        return 'Quản trị hệ thống';
+      case 'manager':
+        return 'Quản lý';
+      case 'lab staff':
+        return 'Nhân viên phòng lab';
+      case 'patient':
+        return 'Dịch vụ bệnh nhân';
+      default:
+        return 'Chức năng chính';
+    }
+  };
 
   return (
     <Sidebar className="border-r border-border bg-card">
@@ -74,14 +51,16 @@ export function AppSidebar() {
             <h2 className="text-lg font-bold bg-gradient-medical bg-clip-text text-transparent">
               Xét nghiệm
             </h2>
-            <p className="text-xs text-muted-foreground">Hệ thống quản lý</p>
+            <p className="text-xs text-muted-foreground">
+              {user ? `${user.name}` : 'Hệ thống quản lý'}
+            </p>
           </div>
         </div>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Chức năng chính</SidebarGroupLabel>
+          <SidebarGroupLabel>{getGroupLabel()}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

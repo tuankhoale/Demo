@@ -13,14 +13,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Search, Bell, Settings, LogOut, User } from 'lucide-react';
+import { Search, Bell, Settings, LogOut, User, Sun, Moon } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-
+import { useTheme } from '@/components/theme-provider';
 
 export function TopBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const { user, logout } = useAuth();
-
+  const { theme, setTheme } = useTheme();
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-sm">
       <div className="container flex h-14 items-center px-6">
@@ -39,6 +39,32 @@ export function TopBar() {
               />
             </div>
           </div>
+
+          {/* Theme Toggle */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="relative">
+                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <Sun className="mr-2 h-4 w-4" />
+                <span>Light</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <Moon className="mr-2 h-4 w-4" />
+                <span>Dark</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                <Settings className="mr-2 h-4 w-4" />
+                <span>System</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
 
           <div className="flex items-center space-x-4">
             {/* Notifications */}
@@ -110,13 +136,13 @@ export function TopBar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/profile" className="flex items-center">
+                  <Link to="/dashboard/profile" className="flex items-center">
                     <User className="mr-2 h-4 w-4" />
                     <span>Thông tin cá nhân</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/settings" className="flex items-center">
+                  <Link to="/dashboard/settings" className="flex items-center">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Cài đặt</span>
                   </Link>

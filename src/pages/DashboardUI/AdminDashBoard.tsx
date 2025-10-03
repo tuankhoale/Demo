@@ -120,7 +120,7 @@ const AdminDashboard = () => {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-4xl font-bold text-foreground">Admin Dashboard</h1>
-
+                    <p className="text-muted-foreground mt-2">Quản trị hệ thống và phân quyền người dùng</p>
                 </div>
             </div>
 
