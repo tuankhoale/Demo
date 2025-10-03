@@ -15,6 +15,7 @@ import {
     TrendingUp,
     ArrowRight,
     CheckCircle,
+    MapPinned,
     Star
 } from "lucide-react";
 
@@ -284,6 +285,10 @@ function HomePage() {
                                 <div className="flex items-center gap-2">
                                     <Users className="w-4 h-4" />
                                     <span>Hotline: 1900 1234</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <MapPinned className="w-4 h-4" />
+                                    <span>123 Đường ABC, Quận XYZ, TP. HCM</span>
                                 </div>
                             </div>
                         </div>

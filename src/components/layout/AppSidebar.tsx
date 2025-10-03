@@ -14,6 +14,7 @@ import {
 import { Microscope } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { getMenuItemsByRole } from '@/config/menuConfig';
+import logo from "@/assets/images/logo.png";
 
 export function AppSidebar() {
   const location = useLocation();
@@ -44,12 +45,10 @@ export function AppSidebar() {
     <Sidebar className="border-r border-border bg-card">
       <SidebarHeader className="p-4">
         <div className="flex items-center space-x-3">
-          <div className="bg-gradient-medical p-2 rounded-xl">
-            <Microscope className="w-6 h-6 text-white" />
-          </div>
+          <img src={logo} alt="logo" className="w-10 h-10" />
           <div>
             <h2 className="text-lg font-bold bg-gradient-medical bg-clip-text text-transparent">
-              Xét nghiệm
+              Phòng Xét nghiệm Máu
             </h2>
             <p className="text-xs text-muted-foreground">
               {user ? `${user.name}` : 'Hệ thống quản lý'}

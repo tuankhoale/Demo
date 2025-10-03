@@ -3,29 +3,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from '@/components/ui/table';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from '@/components/ui/select';
-import { 
-  Search, 
-  Filter, 
-  UserPlus, 
-  Download, 
-  Edit, 
-  Eye, 
-  Calendar 
+import {
+  Search,
+  Filter,
+  UserPlus,
+  Download,
+  Edit,
+  Eye,
+  Calendar
 } from 'lucide-react';
 import { PatientForm } from '@/components/forms/PatientForm';
 
@@ -41,15 +41,17 @@ const PatientManagement = () => {
       name: 'Nguyễn Văn An',
       birthDate: '1985-03-15',
       gender: 'Nam',
+      bloodType: 'A+',
       phone: '0912345678',
       lastTest: '2024-01-15',
       status: 'active'
     },
     {
-      id: 'BN002', 
+      id: 'BN002',
       name: 'Trần Thị Bình',
       birthDate: '1992-07-22',
       gender: 'Nữ',
+      bloodType: 'B-',
       phone: '0987654321',
       lastTest: '2024-01-14',
       status: 'active'
@@ -58,7 +60,8 @@ const PatientManagement = () => {
       id: 'BN003',
       name: 'Lê Minh Cường',
       birthDate: '1978-11-08',
-      gender: 'Nam', 
+      gender: 'Nam',
+      bloodType: 'AB+',
       phone: '0966123456',
       lastTest: '2024-01-10',
       status: 'inactive'
@@ -122,7 +125,7 @@ const PatientManagement = () => {
                 className="pl-10"
               />
             </div>
-            
+
             <div className="flex gap-2">
               <Select>
                 <SelectTrigger className="w-[140px]">
@@ -135,7 +138,28 @@ const PatientManagement = () => {
                   <SelectItem value="female">Nữ</SelectItem>
                 </SelectContent>
               </Select>
-              
+
+              <Select>
+                <SelectTrigger className="w-[140px]">
+                  <SelectValue placeholder="Nhóm máu" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tất cả</SelectItem>
+                  <SelectItem value="A+">A+</SelectItem>
+                  <SelectItem value="B-">B-</SelectItem>
+                  <SelectItem value="AB+">AB+</SelectItem>
+                  <SelectItem value="AB-">AB-</SelectItem>
+                  <SelectItem value="O+">O+</SelectItem>
+                  <SelectItem value="O-">O-</SelectItem>
+                  <SelectItem value="Rh+">Rh+</SelectItem>
+                  <SelectItem value="Rh-">Rh-</SelectItem>
+                  <SelectItem value="Rh+">Rh+</SelectItem>
+                </SelectContent>
+              </Select>
+
+
+
+
               <Select>
                 <SelectTrigger className="w-[140px]">
                   <SelectValue placeholder="Độ tuổi" />
@@ -147,7 +171,7 @@ const PatientManagement = () => {
                   <SelectItem value="over-50">Trên 50</SelectItem>
                 </SelectContent>
               </Select>
-              
+
               <Button variant="outline">
                 <Download className="w-4 h-4 mr-2" />
                 Xuất Excel
@@ -164,6 +188,7 @@ const PatientManagement = () => {
                   <TableHead>Họ và tên</TableHead>
                   <TableHead>Tuổi</TableHead>
                   <TableHead>Giới tính</TableHead>
+                  <TableHead>Nhóm máu</TableHead>
                   <TableHead>Số điện thoại</TableHead>
                   <TableHead>Xét nghiệm gần nhất</TableHead>
                   <TableHead>Trạng thái</TableHead>
@@ -181,6 +206,7 @@ const PatientManagement = () => {
                         {patient.gender}
                       </Badge>
                     </TableCell>
+                    <TableCell>{patient.bloodType}</TableCell>
                     <TableCell>{patient.phone}</TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-1">
@@ -189,7 +215,7 @@ const PatientManagement = () => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge 
+                      <Badge
                         variant={patient.status === 'active' ? 'success' : 'secondary'}
                         className={patient.status === 'active' ? 'bg-status-completed' : ''}
                       >

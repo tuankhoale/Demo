@@ -27,18 +27,6 @@ export function TopBar() {
         <SidebarTrigger className="mr-4" />
 
         <div className="flex flex-1 items-center justify-between space-x-4">
-          <div className="flex items-center space-x-4 flex-1 max-w-sm">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                type="search"
-                placeholder="Tìm kiếm bệnh nhân, xét nghiệm..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-          </div>
 
           {/* Theme Toggle */}
           <DropdownMenu>

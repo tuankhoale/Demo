@@ -10,6 +10,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { fakeUsers } from "@/fakeDb";
 import { LogIn } from "lucide-react";
+import logo from "@/assets/images/logo.png";
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -72,9 +74,7 @@ const Login = () => {
           <div className="text-center space-y-6">
             <div className="flex justify-center">
               <Link to='/'>
-                <div className="bg-gradient-medical p-4 rounded-2xl shadow-medical">
-                  <Microscope className="w-12 h-12 text-white" />
-                </div>
+                <img src={logo} alt="logo" className="w-20 h-20" />
               </Link>
 
             </div>
