@@ -54,7 +54,7 @@ export const menuConfig: Record<Role, MenuItem[]> = {
             icon: FileText,
         },
         {
-            title: 'Cài đặt hệ thống',
+            title: 'Cài đặt',
             url: '/dashboard/settings',
             icon: Settings,
         },
@@ -85,6 +85,11 @@ export const menuConfig: Record<Role, MenuItem[]> = {
             url: '/dashboard/reports',
             icon: FileText,
         },
+        {
+            title: 'Cài đặt',
+            url: '/dashboard/settings',
+            icon: Settings,
+        },
     ],
     'lab staff': [
         {
@@ -106,6 +111,11 @@ export const menuConfig: Record<Role, MenuItem[]> = {
             title: 'Lịch làm việc',
             url: '/dashboard/schedule',
             icon: Calendar,
+        },
+        {
+            title: 'Cài đặt',
+            url: '/dashboard/settings',
+            icon: Settings,
         },
     ],
     patient: [
@@ -138,6 +148,11 @@ export const menuConfig: Record<Role, MenuItem[]> = {
             title: 'Thông báo',
             url: '/dashboard/notifications',
             icon: Bell,
+        },
+        {
+            title: 'Cài đặt',
+            url: '/dashboard/settings',
+            icon: Settings,
         },
     ],
 };

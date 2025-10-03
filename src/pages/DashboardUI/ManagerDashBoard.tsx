@@ -4,7 +4,9 @@ import {
     Users,
     UserCheck,
     FileText,
-    ArrowRight
+    ArrowRight,
+    Settings
+
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +20,7 @@ const ManagerDashboard = () => {
             description: "Nhân viên đang làm việc",
             icon: UserCheck,
             color: "text-medical-primary bg-medical-primary/10",
-            onClick: () => navigate('/staff')
+            onClick: () => navigate('/dashboard/staff')
         },
         {
             title: "Tổng số bệnh nhân",
@@ -26,7 +28,7 @@ const ManagerDashboard = () => {
             description: "Bệnh nhân đã đăng ký",
             icon: Users,
             color: "text-status-processing bg-status-processing/10",
-            onClick: () => navigate('/patients')
+            onClick: () => navigate('/dashboard/patients')
         },
         {
             title: "Báo cáo trong tháng",
@@ -34,7 +36,7 @@ const ManagerDashboard = () => {
             description: "Báo cáo đã hoàn thành",
             icon: FileText,
             color: "text-status-completed bg-status-completed/10",
-            onClick: () => navigate('/reports')
+            onClick: () => navigate('/dashboard/reports')
         }
     ];
 
@@ -85,7 +87,7 @@ const ManagerDashboard = () => {
                         <Button
                             variant="outline"
                             className="h-20 flex-col gap-2"
-                            onClick={() => navigate('/staff')}
+                            onClick={() => navigate('/dashboard/staff')}
                         >
                             <UserCheck className="h-6 w-6" />
                             <span className="text-sm">Quản lý nhân viên</span>
@@ -93,7 +95,7 @@ const ManagerDashboard = () => {
                         <Button
                             variant="outline"
                             className="h-20 flex-col gap-2"
-                            onClick={() => navigate('/patients')}
+                            onClick={() => navigate('/dashboard/patients')}
                         >
                             <Users className="h-6 w-6" />
                             <span className="text-sm">Quản lý bệnh nhân</span>
@@ -101,7 +103,7 @@ const ManagerDashboard = () => {
                         <Button
                             variant="outline"
                             className="h-20 flex-col gap-2"
-                            onClick={() => navigate('/reports')}
+                            onClick={() => navigate('/dashboard/reports')}
                         >
                             <FileText className="h-6 w-6" />
                             <span className="text-sm">Xem báo cáo</span>
@@ -109,9 +111,9 @@ const ManagerDashboard = () => {
                         <Button
                             variant="outline"
                             className="h-20 flex-col gap-2"
-                            onClick={() => navigate('/settings')}
+                            onClick={() => navigate('/dashboard/settings')}
                         >
-                            <UserCheck className="h-6 w-6" />
+                            <Settings className="h-6 w-6" />
                             <span className="text-sm">Cài đặt hệ thống</span>
                         </Button>
                     </div>
